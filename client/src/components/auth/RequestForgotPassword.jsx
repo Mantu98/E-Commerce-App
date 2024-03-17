@@ -19,13 +19,24 @@ const RequestForgotPassword = () => {
     //   return Alert.alert("empty field");
     // }
     try {
-      const res = await axios.post(
+      const res = await fetch(
         "https://e-commerce-app-hmwa.onrender.com/api/v1/auth/forgotPassword",
-        { email }
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
       );
+      const data = await res.json();
+      // const res = await axios.post(
+      //   "https://e-commerce-app-hmwa.onrender.com/api/v1/auth/forgotPassword",
+      //   { email }
+      // );
 
-      console.log(res.data.success);
-      if (res && res.data.success) {
+      console.log(data.data.success);
+      if (data.data.success) {
         // toast.success(res.data && res.data.message);
         Alert.alert(
           "Reset email sent please check your mail box and reset password"

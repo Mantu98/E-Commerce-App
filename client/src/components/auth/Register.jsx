@@ -16,16 +16,35 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
+      const res = await fetch(
         "https://e-commerce-app-hmwa.onrender.com/api/v1/auth/register",
-        { name, email, password, phone, address }
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password, phone, address }),
+        }
       );
-      if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
-        navigate("/login");
+      const data = await res.json();
+      //   const res = await axios.post(
+      //     "https://e-commerce-app-hmwa.onrender.com/api/v1/auth/register",
+      //     { name, email, password, phone, address }
+      //   );
+      console.log(data.success);
+      if (data.success) {
+        // setMessage("Registration successful.");
+        toast.success(data.message);
       } else {
-        toast.error(res.data.message);
+        // setMessage(data.message || "Registration failed.");
+        toast.success(data.message);
       }
+      //   if (data.data.success) {
+      //     toast.success(data.data.message);
+      //     navigate("/login");
+      //   } else {
+      //     toast.error(res.data.message);
+      //   }
     } catch (error) {
       console.log(error);
       toast.error("Smothing went wrong");
