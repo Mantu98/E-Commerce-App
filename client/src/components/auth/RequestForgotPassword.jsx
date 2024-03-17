@@ -20,7 +20,7 @@ const RequestForgotPassword = () => {
     // }
     try {
       const res = await axios.post(
-        "http://localhost:4040/api/v1/auth/forgotPassword",
+        "https://e-commerce-app-hmwa.onrender.com/api/v1/auth/forgotPassword",
         { email }
       );
 
